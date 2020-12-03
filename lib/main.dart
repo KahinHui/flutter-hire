@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:hire/common/LayoutType.dart';
 import 'package:hire/splash.dart';
+
+import 'common/Config.dart';
 
 void main() {
   runApp(MyApp());
@@ -25,7 +28,7 @@ class MyApp extends StatelessWidget {
         // This makes the visual density adapt to the platform that you run
         // the app on. For desktop platforms, the controls will be smaller and
         // closer together (more dense) than on mobile platforms.
-        visualDensity: VisualDensity.adaptivePlatformDensity,
+        /*visualDensity: VisualDensity.adaptivePlatformDensity,*/
       ),
       home: SplashPage(),
       initialRoute: '/',
@@ -55,6 +58,14 @@ class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
 
   void _incrementCounter() {
+    LayoutType _layoutSelection = LayoutType.job;
+
+    Color _colorTabMatching({LayoutType layoutSelection}) {
+      return _layoutSelection == layoutSelection ? Config.GLOBAL_COLOR : Colors.grey;
+    }
+
+
+
     setState(() {
       // This call to setState tells the Flutter framework that something has
       // changed in this State, which causes it to rerun the build method below
@@ -104,7 +115,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Text(
               '$_counter',
-              style: Theme.of(context).textTheme.headline4,
+              style: Theme.of(context).textTheme.headline,
             ),
           ],
         ),
