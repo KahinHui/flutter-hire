@@ -129,6 +129,8 @@ class _MyHomePageState extends State<MyHomePage> {
         return JobPage();
       case LayoutType.mine:
         return JobPage();
+      default:
+        return JobPage();
     }
   }
 
