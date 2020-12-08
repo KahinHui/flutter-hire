@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hire/model/job.dart';
+import 'package:hire/widgets/job/jobItem.dart';
 
 class JobPage extends StatefulWidget {
   @override
@@ -6,7 +8,31 @@ class JobPage extends StatefulWidget {
 }
 
 class _JobPageState extends State<JobPage> with AutomaticKeepAliveClientMixin {
-  Future<List<String>> _fetchJobList() async {}
+  Future<List<Job>> _fetchJobList() async {
+    List<Job> jobList = List<Job>();
+    // Response<Map<String, dynamic>> response = await HttpUtil().get();
+    Job jobData = new Job(
+        id: '1',
+        title: 'Engineer',
+        salary: '10k pre mon',
+        company: 'Google Inc.',
+        info: 'Working in Google Inc.',
+        category: 'category',
+        head: 'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.visualpharm.com%2F&psig=AOvVaw1KO8xmtcvgHgMjAEHM923S&ust=1607505957324000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCNCKvceIvu0CFQAAAAAdAAAAABAD',
+        publish: 'Tom');
+    Job jobData1 = new Job(
+        id: '2',
+        title: 'Senior Engineer',
+        salary: '100k pre mon',
+        company: 'Google Inc.',
+        info: 'Working in Google Inc.Working in Google Inc.Working in Google Inc.Working in Google Inc.Working in Google Inc.Working in Google Inc.Working in Google Inc.Working in Google Inc.Working in Google Inc.Working in Google Inc.',
+        category: 'category',
+        head: 'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.visualpharm.com%2F&psig=AOvVaw1KO8xmtcvgHgMjAEHM923S&ust=1607505957324000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCNCKvceIvu0CFQAAAAAdAAAAABAD',
+        publish: 'Tom');
+    jobList.add(jobData);
+    jobList.add(jobData1);
+    return jobList;
+  }
 
   @override
   bool get wantKeepAlive => true;
@@ -44,12 +70,15 @@ class _JobPageState extends State<JobPage> with AutomaticKeepAliveClientMixin {
   }
 
   Widget _createListView(BuildContext context, AsyncSnapshot snapshot) {
-    List<String> jobList = snapshot.data;
+    List<Job> jobList = snapshot.data;
     return ListView.builder(
       key: new PageStorageKey('job-list'),
       itemCount: jobList.length,
       itemBuilder: (BuildContext context, int index) {
-        return null;
+        return new JobItem(
+          onPressed: () {},
+          job: jobList[index],
+        );
       },
     );
   }
