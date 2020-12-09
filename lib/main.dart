@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hire/common/LayoutType.dart';
 import 'package:hire/splash.dart';
+import 'package:hire/widgets/companyPage.dart';
 import 'package:hire/widgets/jobPage.dart';
 
 import 'common/Config.dart';
@@ -124,7 +125,7 @@ class _MyHomePageState extends State<MyHomePage> {
       case LayoutType.job:
         return JobPage();
       case LayoutType.company:
-        return JobPage();
+        return CompanyPage();
       case LayoutType.chat:
         return JobPage();
       case LayoutType.mine:
