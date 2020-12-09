@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hire/model/company.dart';
+import 'package:hire/widgets/company/companyDetailPage.dart';
 import 'package:hire/widgets/company/companyItem.dart';
 
 class CompanyPage extends StatefulWidget {
@@ -21,7 +22,8 @@ class _CompanyPageState extends State<CompanyPage>
     Company companyData1 = Company(
         id: '1',
         company: 'Apple Inc.',
-        logo: 'https://help.apple.com/assets/5C2D31DA0946224012A6B385/5C2D345D0946227F55A6AEB2/zh_HK/0eb401f9019e0c90e1b7e49a38052daf.png',
+        logo:
+            'https://help.apple.com/assets/5C2D31DA0946224012A6B385/5C2D345D0946227F55A6AEB2/zh_HK/0eb401f9019e0c90e1b7e49a38052daf.png',
         info: 'An American company.',
         hot: '123456');
     companyList.add(companyData);
@@ -79,7 +81,15 @@ class _CompanyPageState extends State<CompanyPage>
         itemCount: companyList.length,
         itemBuilder: (BuildContext context, int index) {
           return CompanyItem(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => CompanyDetailPage(
+                            company: companyList[index],
+                            heroLogo: "heroLogo$index",
+                          )));
+            },
             company: companyList[index],
             heroLogo: "heroLogo$index",
           );
