@@ -22,13 +22,17 @@ class _CompanyDetailPageState extends State<CompanyDetailPage>
   bool _isShow = false;
 
   Future<CompanyDetail> _fetchCompany() async {
+    var imgList = List<String>();
+    imgList.add('');
+    imgList.add('');
+    imgList.add('');
     CompanyDetail companyDetail = CompanyDetail(
         id: '0',
         workHours: '10:00-19:00',
         weekend: '雙休',
         overTime: '偶爾',
         inc: 'inc',
-        companyImgsResult: List<String>());
+        companyImgsResult: imgList);
     return companyDetail;
   }
 

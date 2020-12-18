@@ -16,14 +16,14 @@ class _CompanyPageState extends State<CompanyPage>
         id: '0',
         company: 'Google Inc.',
         logo:
-            'https://images.theconversation.com/files/93616/original/image-20150902-6700-t2axrz.jpg',
+            '',
         info: 'An American company.',
         hot: '12345678');
     Company companyData1 = Company(
         id: '1',
         company: 'Apple Inc.',
         logo:
-            'https://help.apple.com/assets/5C2D31DA0946224012A6B385/5C2D345D0946227F55A6AEB2/zh_HK/0eb401f9019e0c90e1b7e49a38052daf.png',
+            '',
         info: 'An American company.',
         hot: '123456');
     companyList.add(companyData);

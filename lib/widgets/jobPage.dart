@@ -18,7 +18,7 @@ class _JobPageState extends State<JobPage> with AutomaticKeepAliveClientMixin {
         company: 'Google Inc.',
         info: 'Working in Google Inc.',
         category: 'category',
-        head: 'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.visualpharm.com%2F&psig=AOvVaw1KO8xmtcvgHgMjAEHM923S&ust=1607505957324000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCNCKvceIvu0CFQAAAAAdAAAAABAD',
+        head: '',
         publish: 'Tom');
     Job jobData1 = new Job(
         id: '2',
@@ -27,7 +27,7 @@ class _JobPageState extends State<JobPage> with AutomaticKeepAliveClientMixin {
         company: 'Google Inc.',
         info: 'Working in Google Inc.Working in Google Inc.Working in Google Inc.Working in Google Inc.Working in Google Inc.Working in Google Inc.Working in Google Inc.Working in Google Inc.Working in Google Inc.Working in Google Inc.',
         category: 'category',
-        head: 'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.visualpharm.com%2F&psig=AOvVaw1KO8xmtcvgHgMjAEHM923S&ust=1607505957324000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCNCKvceIvu0CFQAAAAAdAAAAABAD',
+        head: '',
         publish: 'Tom');
     jobList.add(jobData);
     jobList.add(jobData1);
