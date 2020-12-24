@@ -4,6 +4,7 @@ import 'package:hire/splash.dart';
 import 'package:hire/widgets/chatPage.dart';
 import 'package:hire/widgets/companyPage.dart';
 import 'package:hire/widgets/jobPage.dart';
+import 'package:hire/widgets/minePage.dart';
 
 import 'common/Config.dart';
 
@@ -130,7 +131,7 @@ class _MyHomePageState extends State<MyHomePage> {
       case LayoutType.chat:
         return ChatPage();
       case LayoutType.mine:
-        return JobPage();
+        return MinePage();
       default:
         return JobPage();
     }
