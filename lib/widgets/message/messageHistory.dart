@@ -17,28 +17,61 @@ class MessageHistoryPage extends StatefulWidget {
   State<StatefulWidget> createState() => _MessageHistoryPageState();
 }
 
-class _MessageHistoryPageState extends State<MessageHistoryPage> {
+class _MessageHistoryPageState extends State<MessageHistoryPage> /*with WidgetsBindingObserver*/ {
+  ScrollController _scrollController = new ScrollController();
   TextEditingController _controller = TextEditingController();
+  FocusNode _focusNode = FocusNode();
+
   WebSocketChannel channel =
-      IOWebSocketChannel.connect('ws://echo.websocket.org');
+      IOWebSocketChannel.connect('ws://echo.websocket.org/');
 
   List<Message> _msgList = List();
+  double _scrollBottom = 0.0;
+  bool _isKeyboardShowing = false;
 
   @override
   void initState() {
     super.initState();
-    channel.stream.listen((msgString) {
-      Message msg = Message.fromJson(jsonDecode(msgString));
-      msg.type = 'receive';
-      setState(() => _msgList.add(msg));
-    });
+    // channel.stream.listen((msgString) {
+    //   Message msg = Message.fromJson(jsonDecode(msgString));
+    //   msg.type = 'receive';
+    //   setState(() => _msgList.add(msg));
+    // });
+    _focusNode.addListener(onFocusChange);
+    // WidgetsBinding.instance.addObserver(this);
     Message msg = widget.message;
     msg.type = 'receive';
     _msgList.add(msg);
   }
 
   @override
+  // void didChangeDependencies() {
+  //   // TODO: implement didChangeDependencies
+  //   super.didChangeDependencies();
+  //   WidgetsBinding.instance.addPostFrameCallback((callback) {
+  //     if (_focusNode.hasFocus) {
+  //       if (_isKeyboardShowing) {
+  //         _isKeyboardShowing = false;
+  //         _focusNode.unfocus();
+  //         return;
+  //       }
+  //       _isKeyboardShowing = true;
+  //     }
+  //   });
+  // }
+
+  void onFocusChange() {
+    if (_focusNode.hasFocus) {
+      setState(() {
+        _scrollController.jumpTo(_scrollBottom);
+      });
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
+    // _isKeyboardShowing = MediaQuery.of(context).viewInsets.vertical > 0;
+
     return Scaffold(
       appBar: AppBar(
         elevation: 0.0,
@@ -48,14 +81,27 @@ class _MessageHistoryPageState extends State<MessageHistoryPage> {
           style: new TextStyle(fontSize: 20.0, color: Colors.white),
         ),
       ),
-      body: Container(
+      body: WillPopScope(
+        onWillPop: null,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Flexible(
-              child: new ListView.builder(
-                  itemBuilder: (context, index) => _makeMessageElement(index)),
-            ),
+                child: StreamBuilder(
+              stream: channel.stream,
+              builder: (context, snapshot) {
+                return new ListView.builder(
+                    // reverse: true,
+                    controller: _scrollController,
+                    itemBuilder: (context, index) =>
+                        _makeMessageElement(index));
+              },
+            )
+                // new ListView.builder(
+                //   reverse: true,
+                //   controller: _scrollController,
+                //     itemBuilder: (context, index) => _makeMessageElement(index)),
+                ),
             SafeArea(
                 child: Padding(
               padding: EdgeInsets.only(left: 10.0, right: 10.0),
@@ -63,8 +109,12 @@ class _MessageHistoryPageState extends State<MessageHistoryPage> {
                 children: <Widget>[
                   Expanded(
                       child: TextField(
+                    onSubmitted: (value) {
+                      _sendMessage();
+                    },
                     controller: _controller,
-                    autofocus: true,
+                    focusNode: _focusNode,
+                    // autofocus: true,
                     decoration: new InputDecoration(hintText: '發送一條消息'),
                   )),
                   RaisedButton(
@@ -94,12 +144,20 @@ class _MessageHistoryPageState extends State<MessageHistoryPage> {
 
       setState(() => _msgList.add(msg));
       channel.sink.add(jsonEncode(msg.toJson()));
+
+      if (_scrollController.position.maxScrollExtent != double.infinity) {
+        _scrollBottom = _scrollController.position.maxScrollExtent;
+      }
+      _scrollController.jumpTo(_scrollBottom);
+      _controller.clear();
     }
   }
 
   @override
   void dispose() {
     channel.sink.close();
+    _scrollController.dispose();
+    _controller.dispose();
     super.dispose();
   }
 

@@ -26,7 +26,7 @@ class MessageSendItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 new Padding(
-                  padding: EdgeInsets.only(left: 15),
+                  padding: EdgeInsets.only(right: 15),
                   child: LimitedBox(
                     maxWidth: MediaQuery.of(context).size.width * 0.6,
                     child: Container(
