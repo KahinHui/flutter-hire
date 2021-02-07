@@ -1,6 +1,8 @@
+import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
+import 'package:hire/Application.dart';
 import 'package:hire/common/LayoutType.dart';
-import 'package:hire/splash.dart';
+import 'package:hire/common/fluro/routes.dart';
 import 'package:hire/widgets/chatPage.dart';
 import 'package:hire/widgets/companyPage.dart';
 import 'package:hire/widgets/jobPage.dart';
@@ -13,6 +15,13 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+
+  MyApp() {
+    final router = FluroRouter();
+    Routes.configureRoutes(router);
+    Application.fluroRouter = router;
+  }
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -34,8 +43,9 @@ class MyApp extends StatelessWidget {
         // closer together (more dense) than on mobile platforms.
         /*visualDensity: VisualDensity.adaptivePlatformDensity,*/
       ),
-      home: SplashPage(),
-      initialRoute: '/',
+      // home: SplashPage(),
+      // initialRoute: '/',
+      onGenerateRoute: Application.fluroRouter.generator,
     );
   }
 }
